@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "dist/esm",
+    "sourceMap": true,
+    "target": "es2018",
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "allowJs": true, // Allow JavaScript files
+    "checkJs": false, // Optional: type check JS files
+    // https://stackoverflow.com/a/56855659
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+    // "skipLibCheck": true  // Don't check declaration files
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "src/**/*.d.ts",
+    "src/index.d.ts", // Prevent overwriting manual declarations
+    "node_modules"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.cjs.json"
+    },
+    {
+      "path": "./tsconfig.esm.json" // root config settings should match for vscode and some other tools to work
+    },
+    {
+      "path": "./tsconfig.types.json"
+    }
+  ]
+}

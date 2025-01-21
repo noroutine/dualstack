@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "outDir": "dist/types",
+    "declaration": true, // Generates .d.ts files
+    "declarationMap": true,  // Helps with source mapping of declarations
+    "declarationDir": "dist/types",
+    "emitDeclarationOnly": true,
+  }
+}

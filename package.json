@@ -1,0 +1,43 @@
+{
+  "name": "@noroutine/dualstack",
+  "version": "0.0.1",
+  "description": "Simple dualstack check",
+  "private": false,
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@vitest/ui": "^3.0.2",
+    "eslint": "9.18.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.0.2"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "ci": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build",
+    "lint": "eslint",
+    "test": "vitest --passWithNoTests",
+    "build": "tsc --build tsconfig.json && sh ./build-types.sh",
+    "type-check": "tsc --noEmit",
+    "prepare": "pnpm build"
+  },
+  "keywords": [
+    "network",
+    "ipv6",
+    "dualstack",
+    "typescript"
+  ],
+  "author": "noroutine"
+}
