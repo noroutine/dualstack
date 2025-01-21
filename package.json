@@ -1,22 +1,39 @@
 {
   "name": "@noroutine/dualstack",
   "version": "0.0.5",
-  "description": "Simple dualstack check",
   "private": false,
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
-  "type": "module",
-  "files": [
-    "src",
-    "dist"
+  "description": "Simple dualstack goodies",
+  "keywords": [
+    "network",
+    "ipv6",
+    "dualstack",
+    "redis",
+    "typescript"
   ],
+  "author": "noroutine",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     }
+  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build tsconfig.json && sh ./build-types.sh",
+    "ci": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build",
+    "clean": "rm -rf dist",
+    "lint": "eslint",
+    "prepare": "pnpm build",
+    "test": "vitest --passWithNoTests",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "^22.10.7",
@@ -25,20 +42,7 @@
     "typescript": "^5.0.0",
     "vitest": "^3.0.2"
   },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "ci": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build",
-    "lint": "eslint",
-    "test": "vitest --passWithNoTests",
-    "build": "tsc --build tsconfig.json && sh ./build-types.sh",
-    "type-check": "tsc --noEmit",
-    "prepare": "pnpm build"
-  },
-  "keywords": [
-    "network",
-    "ipv6",
-    "dualstack",
-    "typescript"
-  ],
-  "author": "noroutine"
+  "peerDependencies": {
+    "ioredis": "^5.0.0"
+  }
 }

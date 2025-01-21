@@ -1,6 +1,7 @@
 import { createServer, Socket } from 'net';
 import dns from 'node:dns';
 import { AddressInfo } from 'node:net';
+import IORedis, { Redis } from 'ioredis';
 
 type DualStackCheckResult = {
     ipv6: boolean
@@ -59,6 +60,25 @@ export async function checkDualStackSupport(verbose = false): Promise<DualStackC
     _dualStackCheckResult = result;
 
     return _dualStackCheckResult;
+}
+
+export async function createRedisConnection(redisUrl: string, failFast = false): Promise<Redis> {
+    // Check if family param is already in URL
+    // if it is explicit, we do not want to override that
+    const hasFamily = redisUrl.includes('family=');
+
+    // Check dual stack
+    const { dualStack } = await checkDualStackSupport();
+
+    return new IORedis(redisUrl, {
+        ...(failFast ? {
+            maxRetriesPerRequest: 0,
+            retryStrategy: () => null
+        } : {
+            maxRetriesPerRequest: null  // BullMQ requirement
+        }),
+        ...((!hasFamily && dualStack) ? { family: 6 } : {})
+    });
 }
 
 // Function to set DNS resolution preference if dualStack is enabled
